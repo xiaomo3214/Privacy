@@ -18,6 +18,11 @@ body{
     right: 0;
     margin: auto;
     z-index: 1;
+    /* overflow: hidden; */
+}
+
+.content::-webkit-scrollbar {
+    display: none;
 }
 
 .choice{
