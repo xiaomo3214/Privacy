@@ -1,22 +1,23 @@
 var comic = $(".comics");
-var content = $(".content");
+var content = $("#main");
 var choice = $(".choice");
 var isPhone = detectmob();
 
 getWidth();
+Mouse();
 
 //設定寬度
 function getWidth(event){
     var scaleimg = $(window).width()/148;  //148為原先選項的圖片寬度
     if(isPhone){
         var dWidth = $(window).width();
-        content.width(dWidth);
         comic.width(dWidth);
+        content.width(dWidth);
         choice.width(70*scaleimg);
     }
     else{
-        content.width("375px");
         comic.width("375px");
+        content.width("375px");
     }
 }
 
@@ -37,7 +38,65 @@ function detectmob() {
     }
 }
 
-var sleep = $(".right");
+
+var choose = null;
+var startX = startY = endX = endY = 0;
+//電腦指令
+function Mouse(){
+    window.addEventListener('mousedown',function(event){
+        event.preventDefault(); //防止預設觸控事件
+    }, {passive: false});
+
+    window.addEventListener('mousemove',function(event){
+        switch(choose){
+            //主軸故事
+            case 'story':
+
+                break;
+
+            //選錯選項
+            case 'gameover':
+
+                break;
+            
+            //正確答案
+            case 'correctanswer':
+
+                break;
+
+            //錯誤答案
+            case 'wronganswer':
+
+                break;
+        }
+    });
+
+    window.addEventListener('mouseup',function(event){
+        switch(choose){
+            //主軸故事
+            case 'story':
+                choose = null;
+                break;
+
+            //選錯選項
+            case 'gameover':
+                choose = null;
+                break;
+            
+            //正確答案
+            case 'correctanswer':
+                choose = null;
+                break;
+
+            //錯誤答案
+            case 'wronganswer':
+                choose = null;
+                break;
+        }
+    },false);
+}
+
+/*var sleep = $(".right");
 var choosesleep = document.querySelector(".right");
 var wakeup = $(".left");
 var choosewakeup = document.querySelector(".left");
@@ -109,4 +168,4 @@ function mouseevent(){
             }
         }
     }, false);
-}
+}*/

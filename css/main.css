@@ -1,14 +1,14 @@
 body{
     margin: 0%;
 }
-.content{
+.comics{
     display: block;
 }
 .over{
     display: none;
 }
 
-.content{
+.comics{
     max-height: auto;
     max-width: 100%;
     position: absolute;
@@ -21,7 +21,7 @@ body{
     /* overflow: hidden; */
 }
 
-.content::-webkit-scrollbar {
+.comics::-webkit-scrollbar {
     display: none;
 }
 
@@ -31,13 +31,13 @@ body{
     z-index: 2;
 }
 
-.left{
+.correct{
     position: absolute;
     margin-left: 3%;
     margin-top: -110%;
 }
 
-.right{
+.wrong{
     position: absolute;
     margin-top: -128%;
     margin-left: 52%;
