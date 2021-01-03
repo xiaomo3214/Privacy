@@ -2,10 +2,14 @@ var comic = $(".comics");
 var content = $(".content");
 var choice = $(".choice");
 var isPhone = detectmob();
-var choose = null, mouse = false;
+var choose = null, mouse = false, speed = 500, cspeed = 1;
 var startX = startY = endX = endY = 0;
-var story = document.querySelector(".comics");
-var over = document.querySelector(".over");
+var main = $("#main");
+var end = $("#end");
+var leftchoice = $(".correct");
+var rightchoice = $(".wrong");
+var story = document.querySelector("#main");
+var over = document.querySelector("#end");
 var correct = document.querySelector(".correct");
 var wrong = document.querySelector(".wrong");
 
@@ -54,22 +58,98 @@ function mouseRead(){
         switch(choose){
             //主軸故事
             case 'story':
-
+                var pos = main.offset();
+                // endX = event.screenX;
+                endY = event.screenY;
+                // var distanceX = (endX - startX);
+                var disranceY = (endY - startY);
+                if(mouse && startY != Math.abs(disranceY) && event.buttons == 1){
+                    if(disranceY < 0){
+                        if(main.position().top + disranceY * ((main.height() - $(window).height()) / speed) > (-main.height() + $(window).height())){
+                            main.offset({top:pos.top + disranceY * ((main.height() - $(window).height()) / speed)});
+                        }
+                        if(main.position().top + disranceY * ((main.height() - $(window).height()) / speed) < -890){
+                            $(".correct").fadeIn();
+                            $(".wrong").fadeIn();
+                        }
+                        else{
+                            $(".correct").fadeOut();
+                            $(".wrong").fadeOut();
+                        }
+                    }
+                    else if(disranceY > 0){
+                        if(main.position().top + disranceY * ((main.height() - $(window).height()) / speed) < 0){
+                            main.offset({top:pos.top + disranceY * ((main.height() - $(window).height()) / speed)});
+                        }
+                        if(main.position().top + disranceY * ((main.height() - $(window).height()) / speed) < 0){
+                            $(".correct").fadeOut();
+                            $(".wrong").fadeOut();
+                        }
+                    }
+                    startY = endY;
+                }
                 break;
 
-            //選錯選項
+            //結束故事
             case 'gameover':
-
+                var pos = end.offset();
+                // endX = event.screenX;
+                endY = event.screenY;
+                // var distanceX = (endX - startX);
+                var disranceY = (endY - startY);
+                if(mouse && startY != Math.abs(disranceY) && event.buttons == 1){
+                    if(disranceY < 0){
+                        if(end.position().top + disranceY * ((end.height() - $(window).height()) / speed) > (-end.height() + $(window).height())){
+                            end.offset({top:pos.top + disranceY * ((end.height() - $(window).height()) / speed)});
+                        }
+                    }
+                    else if(disranceY > 0){
+                        if(end.position().top + disranceY * ((end.height() - $(window).height()) / speed) < 0){
+                            end.offset({top:pos.top + disranceY * ((end.height() - $(window).height()) / speed)});
+                        }
+                    }
+                    startY = endY;
+                }
                 break;
             
             //正確答案
             case 'correctanswer':
-
+                var pos = leftchoice.offset();
+                endX = event.screenX;
+                // endY = event.screenY;
+                var distanceX = (endX - startX);
+                // var disranceY = (endY - startY);
+                if(mouse && startX != Math.abs(distanceX) && event.buttons == 1){
+                    if(distanceX < 0){
+                        if(leftchoice.position().left + distanceX / cspeed > -100)
+                            leftchoice.offset({left:pos.left+distanceX/cspeed});
+                    }
+                    if(distanceX > 0){
+                        if(leftchoice.position().left + distanceX / cspeed < 0)
+                            leftchoice.offset({left:pos.left+distanceX/cspeed});
+                    }
+                    startX = endX;
+                }
                 break;
 
             //錯誤答案
             case 'wronganswer':
-
+                var pos = rightchoice.offset();
+                endX = event.screenX;
+                // endY = event.screenY;
+                var distanceX = (endX - startX);
+                // var disranceY = (endY - startY);
+                if(mouse && startX != Math.abs(distanceX) && event.buttons == 1){
+                    if(distanceX < 0){
+                        if(rightchoice.position().left + distanceX / cspeed > 0)
+                            rightchoice.offset({left:pos.left+distanceX/cspeed});
+                    }
+                    if(distanceX > 0){
+                        if(rightchoice.position().left + distanceX / cspeed)
+                            rightchoice.offset({left:pos.left+distanceX/cspeed});
+                    }
+                    startX = endX;
+                }
                 break;
         }
     });
@@ -78,27 +158,35 @@ function mouseRead(){
         choose = null;
         mouse = false;
         startX = startY = endX = endY = 0;
-        // switch(choose){
-        //     //主軸故事
-        //     case 'story':
-        //         choose = null;
-        //         break;
+        switch(choose){
+            //主軸故事
+            case 'story':
+                choose = null;
+                mouse = false;
+                startX = startY = endX = endY = 0;
+                break;
 
-        //     //選錯選項
-        //     case 'gameover':
-        //         choose = null;
-        //         break;
+            //選錯選項
+            case 'gameover':
+                choose = null;
+                mouse = false;
+                startX = startY = endX = endY = 0;
+                break;
             
-        //     //正確答案
-        //     case 'correctanswer':
-        //         choose = null;
-        //         break;
+            //正確答案
+            case 'correctanswer':
+                choose = null;
+                mouse = false;
+                startX = startY = endX = endY = 0;
+                break;
 
-        //     //錯誤答案
-        //     case 'wronganswer':
-        //         choose = null;
-        //         break;
-        // }
+            //錯誤答案
+            case 'wronganswer':
+                choose = null;
+                mouse = false;
+                startX = startY = endX = endY = 0;
+                break;
+        }
     },false);
 
     story.addEventListener('mousedown',function(event){

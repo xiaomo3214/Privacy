@@ -7,6 +7,12 @@ body{
 .over{
     display: none;
 }
+.correct{
+    display: none;
+}
+.wrong{
+    display: none;
+}
 
 .comics{
     max-height: auto;
@@ -46,11 +52,11 @@ body{
 .correct{
     position: absolute;
     margin-left: 3%;
-    margin-top: -110%;
+    margin-top: -350%;
 }
 
 .wrong{
     position: absolute;
-    margin-top: -128%;
+    margin-top: -365%;
     margin-left: 52%;
 }
