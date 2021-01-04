@@ -1,4 +1,5 @@
 var comic = $(".comics");
+var error = $(".over");
 var content = $(".content");
 var choice = $(".choice");
 var isPhone = detectmob();
@@ -6,8 +7,8 @@ var choose = null, mouse = false, speed = 500, cspeed = 1;
 var startX = startY = endX = endY = 0;
 var main = $("#main");
 var end = $("#end");
-var leftchoice = $(".correct");
-var rightchoice = $(".wrong");
+var leftchoice = $("#correct");
+var rightchoice = $("#wrong");
 var story = document.querySelector("#main");
 var over = document.querySelector("#end");
 var correct = document.querySelector(".correct");
@@ -15,6 +16,7 @@ var wrong = document.querySelector(".wrong");
 
 getWidth();
 mouseRead();
+touchRead();
 
 //設定寬度
 function getWidth(event){
@@ -47,6 +49,43 @@ function detectmob() {
         return false;
     }
 }
+function Init(){
+    choose = null;
+    mouse = false;
+    startX = startY = endX = endY = 0;
+    comic.css("display","block");
+    error.css("display","none");
+    main.css("top",0);
+    end.css("top",0);
+    leftchoice.css("display","none");
+    rightchoice.css("display","none");
+    leftchoice.css("left","-0px");
+    rightchoice.css("left","1px");
+}
+
+function nextStory(){
+    choose = null;
+    mouse = false;
+    startX = startY = endX = endY = 0;
+    main.css("top",0);
+    leftchoice.css("display","none");
+    rightchoice.css("display","none");
+    leftchoice.css("left","-0px");
+    rightchoice.css("left","1px");
+}
+
+function gameOver(){
+    choose = null;
+    mouse = false;
+    startX = startY = endX = endY = 0;
+    comic.css("display","none");
+    error.css("display","block");
+    main.css("top",0);
+    leftchoice.css("display","none");
+    rightchoice.css("display","none");
+    leftchoice.css("left","-0px");
+    rightchoice.css("left","1px");
+}
 
 //電腦指令
 function mouseRead(){
@@ -68,7 +107,7 @@ function mouseRead(){
                         if(main.position().top + disranceY * ((main.height() - $(window).height()) / speed) > (-main.height() + $(window).height())){
                             main.offset({top:pos.top + disranceY * ((main.height() - $(window).height()) / speed)});
                         }
-                        if(main.position().top + disranceY * ((main.height() - $(window).height()) / speed) < -890){
+                        if(main.position().top + disranceY * ((main.height() - $(window).height()) / speed) < (-main.height() + $(window).height())){
                             $(".correct").fadeIn();
                             $(".wrong").fadeIn();
                         }
@@ -90,7 +129,7 @@ function mouseRead(){
                 }
                 break;
 
-            //結束故事
+            //錯誤故事
             case 'gameover':
                 var pos = end.offset();
                 // endX = event.screenX;
@@ -99,8 +138,9 @@ function mouseRead(){
                 var disranceY = (endY - startY);
                 if(mouse && startY != Math.abs(disranceY) && event.buttons == 1){
                     if(disranceY < 0){
-                        if(end.position().top + disranceY * ((end.height() - $(window).height()) / speed) > (-end.height() + $(window).height())){
-                            end.offset({top:pos.top + disranceY * ((end.height() - $(window).height()) / speed)});
+                        end.offset({top:pos.top + disranceY * ((end.height() - $(window).height()) / speed)});
+                        if(end.position().top + disranceY * ((end.height() - $(window).height()) / speed) < (-end.height() + $(window).height()) - $(window).height()/10){
+                            Init();
                         }
                     }
                     else if(disranceY > 0){
@@ -121,8 +161,12 @@ function mouseRead(){
                 // var disranceY = (endY - startY);
                 if(mouse && startX != Math.abs(distanceX) && event.buttons == 1){
                     if(distanceX < 0){
-                        if(leftchoice.position().left + distanceX / cspeed > -100)
-                            leftchoice.offset({left:pos.left+distanceX/cspeed});
+                        leftchoice.offset({left:pos.left+distanceX/cspeed});
+                        if(leftchoice.position().left + distanceX / cspeed < -leftchoice.width() / 2){
+                            // leftchoice.offset({left:pos.left+distanceX/cspeed});
+                            // leftchoice.fadeOut();
+                            nextStory();
+                        }
                     }
                     if(distanceX > 0){
                         if(leftchoice.position().left + distanceX / cspeed < 0)
@@ -145,8 +189,10 @@ function mouseRead(){
                             rightchoice.offset({left:pos.left+distanceX/cspeed});
                     }
                     if(distanceX > 0){
-                        if(rightchoice.position().left + distanceX / cspeed)
-                            rightchoice.offset({left:pos.left+distanceX/cspeed});
+                        rightchoice.offset({left:pos.left + distanceX / cspeed});
+                        if(rightchoice.position().left + distanceX / cspeed > rightchoice.width() / 2){
+                            gameOver();
+                        }
                     }
                     startX = endX;
                 }
@@ -166,7 +212,7 @@ function mouseRead(){
                 startX = startY = endX = endY = 0;
                 break;
 
-            //選錯選項
+            //錯誤故事
             case 'gameover':
                 choose = null;
                 mouse = false;
@@ -218,6 +264,181 @@ function mouseRead(){
         mouse = true;
         startX = event.screenX;
         startY = event.screenY;
+        choose = 'wronganswer';
+    }, false);
+}
+
+//手機指令
+function touchRead(){
+    window.addEventListener('touchmove',function(event){
+        event.preventDefault(); //防止預設觸控事件
+    }, {passive: false});
+
+    window.addEventListener('touchmove',function(event){
+        var touch = event.targetTouches[0];
+        switch(choose){
+            //主軸故事
+            case 'story':
+                var pos = main.offset();
+                // endX = touch.screenX;
+                endY = touch.screenY;
+                // var distanceX = (endX - startX);
+                var disranceY = (endY - startY);
+                if(startY != Math.abs(disranceY)){
+                    if(disranceY < 0){
+                        if(main.position().top + disranceY * ((main.height() - $(window).height()) / speed) > (-main.height() + $(window).height())){
+                            main.offset({top:pos.top + disranceY * ((main.height() - $(window).height()) / speed)});
+                        }
+                        if(main.position().top + disranceY * ((main.height() - $(window).height()) / speed) < (-main.height() + $(window).height())){
+                            $(".correct").fadeIn();
+                            $(".wrong").fadeIn();
+                        }
+                        else{
+                            $(".correct").fadeOut();
+                            $(".wrong").fadeOut();
+                        }
+                    }
+                    else if(disranceY > 0){
+                        if(main.position().top + disranceY * ((main.height() - $(window).height()) / speed) < 0){
+                            main.offset({top:pos.top + disranceY * ((main.height() - $(window).height()) / speed)});
+                        }
+                        if(main.position().top + disranceY * ((main.height() - $(window).height()) / speed) < 0){
+                            $(".correct").fadeOut();
+                            $(".wrong").fadeOut();
+                        }
+                    }
+                    startY = endY;
+                }
+                break;
+
+            //錯誤故事
+            case 'gameover':
+                var pos = end.offset();
+                // endX = touch.screenX;
+                endY = touch.screenY;
+                // var distanceX = (endX - startX);
+                var disranceY = (endY - startY);
+                if(startY != Math.abs(disranceY)){
+                    if(disranceY < 0){
+                        end.offset({top:pos.top + disranceY * ((end.height() - $(window).height()) / speed)});
+                        if(end.position().top + disranceY * ((end.height() - $(window).height()) / speed) < (-end.height() + $(window).height()) - $(window).height()/10){
+                            Init();
+                        }
+                    }
+                    else if(disranceY > 0){
+                        if(end.position().top + disranceY * ((end.height() - $(window).height()) / speed) < 0){
+                            end.offset({top:pos.top + disranceY * ((end.height() - $(window).height()) / speed)});
+                        }
+                    }
+                    startY = endY;
+                }
+                break;
+            
+            //正確答案
+            case 'correctanswer':
+                var pos = leftchoice.offset();
+                endX = touch.screenX;
+                // endY = touch.screenY;
+                var distanceX = (endX - startX);
+                // var disranceY = (endY - startY);
+                if(startX != Math.abs(distanceX)){
+                    if(distanceX < 0){
+                        leftchoice.offset({left:pos.left+distanceX/cspeed});
+                        if(leftchoice.position().left + distanceX / cspeed < -leftchoice.width() / 2){
+                            // leftchoice.offset({left:pos.left+distanceX/cspeed});
+                            // leftchoice.fadeOut();
+                            nextStory();
+                        }
+                    }
+                    if(distanceX > 0){
+                        if(leftchoice.position().left + distanceX / cspeed < 0)
+                            leftchoice.offset({left:pos.left+distanceX/cspeed});
+                    }
+                    startX = endX;
+                }
+                break;
+
+            //錯誤答案
+            case 'wronganswer':
+                var pos = rightchoice.offset();
+                endX = touch.screenX;
+                // endY = touch.screenY;
+                var distanceX = (endX - startX);
+                // var disranceY = (endY - startY);
+                if(startX != Math.abs(distanceX)){
+                    if(distanceX < 0){
+                        if(rightchoice.position().left + distanceX / cspeed > 0)
+                            rightchoice.offset({left:pos.left+distanceX/cspeed});
+                    }
+                    if(distanceX > 0){
+                        rightchoice.offset({left:pos.left + distanceX / cspeed});
+                        if(rightchoice.position().left + distanceX / cspeed > rightchoice.width() / 2){
+                            gameOver();
+                        }
+                    }
+                    startX = endX;
+                }
+                break;
+        }
+    });
+
+    window.addEventListener('touchend',function(event){
+        switch(choose){
+            //主軸故事
+            case 'story':
+                choose = null;
+                startX = startY = endX = endY = 0;
+                break;
+
+            //錯誤故事
+            case 'gameover':
+                choose = null;
+                startX = startY = endX = endY = 0;
+                break;
+            
+            //正確答案
+            case 'correctanswer':
+                choose = null;
+                startX = startY = endX = endY = 0;
+                break;
+
+            //錯誤答案
+            case 'wronganswer':
+                choose = null;
+                startX = startY = endX = endY = 0;
+                break;
+        }
+    },false);
+
+    story.addEventListener('touchstart',function(event){
+        // event.preventDefault();
+        var touch = event.targetTouches[0];
+        startX = touch.screenX;
+        startY = touch.screenY;
+        choose = 'story';
+    }, false);
+
+    over.addEventListener('touchstart',function(event){
+        // event.preventDefault();
+        var touch = event.targetTouches[0];
+        startX = touch.screenX;
+        startY = touch.screenY;
+        choose = 'gameover';
+    }, false);
+
+    correct.addEventListener('touchstart',function(event){
+        // event.preventDefault();
+        var touch = event.targetTouches[0];
+        startX = touch.screenX;
+        startY = touch.screenY;
+        choose = 'correctanswer';
+    }, false);
+
+    wrong.addEventListener('touchstart',function(event){
+        // event.preventDefault();
+        var touch = event.targetTouches[0];
+        startX = touch.screenX;
+        startY = touch.screenY;
         choose = 'wronganswer';
     }, false);
 }

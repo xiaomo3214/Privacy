@@ -31,7 +31,7 @@ body{
     display: none;
 }
 
-.conrent{
+.over{
     max-height: auto;
     max-width: 100%;
     position: absolute;
@@ -41,10 +41,26 @@ body{
     right: 0;
     margin: auto;
     z-index: 1;
+    overflow: hidden;
+}
+
+.over::-webkit-scrollbar {
+    display: none;
+}
+
+.content{
+    max-height: auto;
+    max-width: 100%;
+    position: absolute;
+    /* top: 0;
+    bottom: 0; */
+    left: 0;
+    right: 0;
+    margin: auto;
+    z-index: 0;
 }
 
 .choice{
-    max-width: 100%;
     width: 180px;
     z-index: 2;
 }
@@ -52,11 +68,11 @@ body{
 .correct{
     position: absolute;
     margin-left: 3%;
-    margin-top: -350%;
+    bottom: 30%;
 }
 
 .wrong{
     position: absolute;
-    margin-top: -365%;
+    bottom: 40%;
     margin-left: 52%;
 }
