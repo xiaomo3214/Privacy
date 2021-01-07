@@ -64,14 +64,15 @@ function Init(){
 }
 
 function nextStory(){
-    choose = null;
-    mouse = false;
-    startX = startY = endX = endY = 0;
-    main.css("top",0);
-    leftchoice.css("display","none");
-    rightchoice.css("display","none");
-    leftchoice.css("left","-0px");
-    rightchoice.css("left","1px");
+    document.location.href="https://www.google.com.tw/";
+    // choose = null;
+    // mouse = false;
+    // startX = startY = endX = endY = 0;
+    // main.css("top",0);
+    // leftchoice.css("display","none");
+    // rightchoice.css("display","none");
+    // leftchoice.css("left","-0px");
+    // rightchoice.css("left","1px");
 }
 
 function gameOver(){
@@ -139,7 +140,7 @@ function mouseRead(){
                 if(mouse && startY != Math.abs(disranceY) && event.buttons == 1){
                     if(disranceY < 0){
                         end.offset({top:pos.top + disranceY * ((end.height() - $(window).height()) / speed)});
-                        if(end.position().top + disranceY * ((end.height() - $(window).height()) / speed) < (-end.height() + $(window).height()) - $(window).height()/10){
+                        if(end.position().top + disranceY * ((end.height() - $(window).height()) / speed) < (-end.height() + $(window).height()) - $(window).height()/5){
                             Init();
                         }
                     }
@@ -321,7 +322,7 @@ function touchRead(){
                 if(startY != Math.abs(disranceY)){
                     if(disranceY < 0){
                         end.offset({top:pos.top + disranceY * ((end.height() - $(window).height()) / speed)});
-                        if(end.position().top + disranceY * ((end.height() - $(window).height()) / speed) < (-end.height() + $(window).height()) - $(window).height()/10){
+                        if(end.position().top + disranceY * ((end.height() - $(window).height()) / speed) < (-end.height() + $(window).height()) - $(window).height()/5){
                             Init();
                         }
                     }
