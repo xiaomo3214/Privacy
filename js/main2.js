@@ -271,7 +271,7 @@ function mouseRead(){
 //手機指令
 function touchRead(){
     window.addEventListener('touchmove',function(event){
-        // event.preventDefault(); //防止預設觸控事件
+        event.preventDefault(); //防止預設觸控事件
     }, {passive: false});
 
     window.addEventListener('touchmove',function(event){
