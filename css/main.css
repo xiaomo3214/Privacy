@@ -67,12 +67,12 @@ body{
 
 .correct{
     position: absolute;
-    margin-left: 3%;
-    bottom: 30%;
+    margin-left: 1%;
+    bottom: 15%;
 }
 
 .wrong{
     position: absolute;
-    bottom: 40%;
+    bottom: 23%;
     margin-left: 52%;
 }

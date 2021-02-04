@@ -25,7 +25,7 @@ function getWidth(event){
         var dWidth = $(window).width();
         comic.width(dWidth);
         content.width(dWidth);
-        choice.width(70*scaleimg);
+        choice.width(65*scaleimg);
     }
     else{
         comic.width("375px");
@@ -38,7 +38,6 @@ function detectmob() {
     if( navigator.userAgent.match(/Android/i)
         || navigator.userAgent.match(/webOS/i)
         || navigator.userAgent.match(/iPhone/i)
-        || navigator.userAgent.match(/iPad/i)
         || navigator.userAgent.match(/iPod/i)
         || navigator.userAgent.match(/BlackBerry/i)
         || navigator.userAgent.match(/Windows Phone/i)
