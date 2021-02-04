@@ -129,7 +129,7 @@ function mouseRead(){
                 }
                 break;
 
-            //錯誤故事
+            /*//錯誤故事
             case 'gameover':
                 var pos = end.offset();
                 // endX = event.screenX;
@@ -196,7 +196,7 @@ function mouseRead(){
                     }
                     startX = endX;
                 }
-                break;
+                break;*/
         }
     });
 
@@ -212,7 +212,7 @@ function mouseRead(){
                 startX = startY = endX = endY = 0;
                 break;
 
-            //錯誤故事
+            /*//錯誤故事
             case 'gameover':
                 choose = null;
                 mouse = false;
@@ -231,7 +231,7 @@ function mouseRead(){
                 choose = null;
                 mouse = false;
                 startX = startY = endX = endY = 0;
-                break;
+                break;*/
         }
     },false);
 
@@ -243,7 +243,7 @@ function mouseRead(){
         choose = 'story';
     }, false);
 
-    over.addEventListener('mousedown',function(event){
+    /*over.addEventListener('mousedown',function(event){
         // event.preventDefault();
         mouse = true;
         startX = event.screenX;
@@ -265,7 +265,7 @@ function mouseRead(){
         startX = event.screenX;
         startY = event.screenY;
         choose = 'wronganswer';
-    }, false);
+    }, false);*/
 }
 
 //手機指令
@@ -311,7 +311,7 @@ function touchRead(){
                 }
                 break;
 
-            //錯誤故事
+            /*//錯誤故事
             case 'gameover':
                 var pos = end.offset();
                 // endX = touch.screenX;
@@ -378,7 +378,7 @@ function touchRead(){
                     }
                     startX = endX;
                 }
-                break;
+                break;*/
         }
     });
 
@@ -390,7 +390,7 @@ function touchRead(){
                 startX = startY = endX = endY = 0;
                 break;
 
-            //錯誤故事
+            /*//錯誤故事
             case 'gameover':
                 choose = null;
                 startX = startY = endX = endY = 0;
@@ -406,7 +406,7 @@ function touchRead(){
             case 'wronganswer':
                 choose = null;
                 startX = startY = endX = endY = 0;
-                break;
+                break;*/
         }
     },false);
 
@@ -418,7 +418,7 @@ function touchRead(){
         choose = 'story';
     }, false);
 
-    over.addEventListener('touchstart',function(event){
+    /*over.addEventListener('touchstart',function(event){
         // event.preventDefault();
         var touch = event.targetTouches[0];
         startX = touch.screenX;
@@ -440,5 +440,5 @@ function touchRead(){
         startX = touch.screenX;
         startY = touch.screenY;
         choose = 'wronganswer';
-    }, false);
+    }, false);*/
 }
