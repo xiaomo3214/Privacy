@@ -3,7 +3,7 @@ var error = $(".over");
 var content = $(".content");
 var choice = $(".choice");
 var isPhone = detectmob();
-var choose = null, mouse = false, speed = 500, cspeed = 1;
+var choose = null, mouse = false, speed = 1500, cspeed = 1;
 var startX = startY = endX = endY = 0;
 var main = $("#main");
 var end = $("#end");
