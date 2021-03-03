@@ -139,6 +139,10 @@ function mouseRead(){
                 if(mouse && startY != Math.abs(disranceY) && event.buttons == 1){
                     if(disranceY < 0){
                         end.offset({top:pos.top + disranceY});
+                        if(end.position().top + disranceY < (-end.height() + $(window).height())){
+                            var dot = $(window).height()/25;
+                            
+                        }
                         if(end.position().top + disranceY < (-end.height() + $(window).height()) - $(window).height()/5){
                             Init();
                         }
