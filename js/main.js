@@ -2,6 +2,8 @@ var comic = $(".comics");
 var error = $(".over");
 var content = $(".content");
 var choice = $(".choice");
+var dot = $(".flex-dot");
+
 var isPhone = detectmob();
 var choose = null, mouse = false, speed = 1500, cspeed = 1;
 var startX = startY = endX = endY = 0;
@@ -26,10 +28,12 @@ function getWidth(event){
         comic.width(dWidth);
         content.width(dWidth);
         choice.width(70*scaleimg);
+        dot.width(dWidth);
     }
     else{
         comic.width("375px");
         content.width("375px");
+        dot.width("375px");
     }
 }
 

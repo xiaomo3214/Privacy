@@ -76,3 +76,36 @@ body{
     bottom: 23%;
     margin-left: 52%;
 }
+
+.flex-dot{
+    max-height: 100%;
+    max-width: auto;
+    position: absolute;
+    height: 35px;
+    bottom: 0%;
+    margin: auto;
+    z-index: 0;
+}
+
+.next{
+    width: 30px;
+    height: 30px;
+    margin-left: 5.5%;
+    margin-right: 5.5%;
+}
+/* 
+#dot1{
+    margin-left: %;
+}
+#dot2{
+    margin-left: 5%;
+}
+#dot3{
+    margin-left: 5%;
+}
+#dot4{
+    margin-left: 5%;
+}
+#dot5{
+    margin-left: 5%;
+} */
