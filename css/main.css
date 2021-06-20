@@ -61,21 +61,20 @@ body{
 }
 
 .choice{
-    width: 180px;
+    max-width: 100%;
     z-index: 2;
 }
-
-.correct{
+.position{
     position: absolute;
-    margin-left: 1%;
-    bottom: 15%;
+    bottom: 0%;
 }
 
-.wrong{
+
+/* .wrong{
     position: absolute;
     bottom: 23%;
     margin-left: 52%;
-}
+} */
 
 .flex-dot{
     max-height: 100%;
@@ -92,22 +91,23 @@ body{
 .next{
     width: 30px;
     height: 30px;
-    margin-left: 5.5%;
-    margin-right: 5.5%;
+    /* margin-left: 5%;
+    margin-right: 5%; */
+    position: absolute;
 }
-/* 
+
 #dot1{
-    margin-left: %;
+    margin-left: 50px;
 }
 #dot2{
-    margin-left: 5%;
+    margin-left: 110px;
 }
 #dot3{
-    margin-left: 5%;
+    margin-left: 170px;
 }
 #dot4{
-    margin-left: 5%;
+    margin-left: 230px;
 }
 #dot5{
-    margin-left: 5%;
-} */
+    margin-left: 290px;
+}

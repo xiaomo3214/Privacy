@@ -1,6 +1,16 @@
 var comic = $(".comics");
 var error = $(".over");
 var content = $(".content");
+var dot = $(".flex-dot");
+var dt = 0;
+var speedplus = 3;
+
+var one = document.getElementById('dot1');
+var two = document.getElementById('dot2');
+var three = document.getElementById('dot3');
+var four = document.getElementById('dot4');
+var five = document.getElementById('dot5');
+
 var choice = $(".choice");
 var isPhone = detectmob();
 var choose = null, mouse = false, speed = 5000, cspeed = 1;
@@ -17,6 +27,7 @@ var wrong = document.querySelector(".wrong");
 getWidth();
 mouseRead();
 touchRead();
+Getdot();
 
 //設定寬度
 function getWidth(event){
@@ -25,11 +36,13 @@ function getWidth(event){
         var dWidth = $(window).width();
         comic.width(dWidth);
         content.width(dWidth);
-        choice.width(70*scaleimg);
+        choice.width(dWidth);
+        dot.width(dWidth);
     }
     else{
         comic.width("375px");
         content.width("375px");
+        dot.width("375px");
     }
 }
 
@@ -48,6 +61,15 @@ function detectmob() {
         return false;
     }
 }
+
+function Getdot(){
+    dot1.style.display = 'none';
+    dot2.style.display = 'none';
+    dot3.style.display = 'none';
+    dot4.style.display = 'none';
+    dot5.style.display = 'none';
+}
+
 function Init(){
     choose = null;
     mouse = false;
@@ -56,6 +78,7 @@ function Init(){
     error.css("display","none");
     main.css("top",0);
     end.css("top",0);
+    dt = 0;
     leftchoice.css("display","none");
     rightchoice.css("display","none");
     leftchoice.css("left","-0px");
@@ -63,7 +86,8 @@ function Init(){
 }
 
 function nextStory(){
-    document.location.href="ch01_1.html";
+
+    document.location.href="ch01_3.html";
     // choose = null;
     // mouse = false;
     // startX = startY = endX = endY = 0;
@@ -104,25 +128,38 @@ function mouseRead(){
                 var disranceY = (endY - startY);
                 if(mouse && startY != Math.abs(disranceY) && event.buttons == 1){
                     if(disranceY < 0){
-                        if(main.position().top + disranceY > (-main.height() + $(window).height())){
-                            main.offset({top:pos.top + disranceY});
-                        }
+                        main.offset({top:pos.top + disranceY-speedplus});
                         if(main.position().top + disranceY < (-main.height() + $(window).height())){
-                            $(".correct").fadeIn();
-                            $(".wrong").fadeIn();
+                            var dot = $(window).height()/25;
+                            
                         }
-                        else{
-                            $(".correct").fadeOut();
-                            $(".wrong").fadeOut();
+                        if(main.position().top + disranceY < (-main.height() + $(window).height()) - $(window).height()/5){
+                            console.log(dt);
+                            dt++;
+                            if(dt == 1){
+                                dot1.style.display = 'block';
+                            }
+                            if(dt == 3){
+                                dot2.style.display = 'block';
+                            }
+                            if(dt == 5){
+                                dot3.style.display = 'block';
+                            }
+                            if(dt == 7){
+                                dot4.style.display = 'block';
+                            }
+                            if(dt == 9){
+                                dot5.style.display = 'block';
+                            }
+                            if(dt == 10){
+                                nextStory();
+                            }
+                            
                         }
                     }
                     else if(disranceY > 0){
                         if(main.position().top + disranceY < 0){
-                            main.offset({top:pos.top + disranceY});
-                        }
-                        if(main.position().top + disranceY < 0){
-                            $(".correct").fadeOut();
-                            $(".wrong").fadeOut();
+                            main.offset({top:pos.top + disranceY+speedplus});
                         }
                     }
                     startY = endY;
@@ -286,25 +323,36 @@ function touchRead(){
                 var disranceY = (endY - startY);
                 if(startY != Math.abs(disranceY)){
                     if(disranceY < 0){
-                        if(main.position().top + disranceY > (-main.height() + $(window).height())){
-                            main.offset({top:pos.top + disranceY});
+                        if(disranceY < -20){
+                            main.offset({top:pos.top + disranceY-20});
                         }
-                        if(main.position().top + disranceY < (-main.height() + $(window).height())){
-                            $(".correct").fadeIn();
-                            $(".wrong").fadeIn();
-                        }
-                        else{
-                            $(".correct").fadeOut();
-                            $(".wrong").fadeOut();
+                        main.offset({top:pos.top + disranceY-speedplus});
+                        if(main.position().top + disranceY < (-main.height() + $(window).height()) - $(window).height()/5){
+                            console.log(dt);
+                            dt++;
+                            if(dt == 1){
+                                dot1.style.display = 'block';
+                            }
+                            if(dt == 3){
+                                dot2.style.display = 'block';
+                            }
+                            if(dt == 5){
+                                dot3.style.display = 'block';
+                            }
+                            if(dt == 7){
+                                dot4.style.display = 'block';
+                            }
+                            if(dt == 9){
+                                dot5.style.display = 'block';
+                            }
+                            if(dt == 10){
+                                nextStory();
+                            }
                         }
                     }
                     else if(disranceY > 0){
                         if(main.position().top + disranceY < 0){
-                            main.offset({top:pos.top + disranceY});
-                        }
-                        if(main.position().top + disranceY < 0){
-                            $(".correct").fadeOut();
-                            $(".wrong").fadeOut();
+                            main.offset({top:pos.top + disranceY+speedplus});
                         }
                     }
                     startY = endY;
