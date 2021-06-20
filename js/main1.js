@@ -347,6 +347,7 @@ function touchRead(){
         switch(choose){
             //主軸故事
             case 'story':
+                flg = false;
                 choose = null;
                 startX = startY = endX = endY = 0;
                 //slideTime = 0;
